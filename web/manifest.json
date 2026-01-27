@@ -1,6 +1,6 @@
 {
-    "name": "web_of_edss",
-    "short_name": "web_of_edss",
+    "name": "永昼生存服务器",
+    "short_name": "永昼生存服务器",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

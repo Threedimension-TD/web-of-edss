@@ -1,0 +1,117 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/material.dart';
+import 'package:web_of_edss/MenuItem.dart';
+
+class MyAppBar extends StatefulWidget implements PreferredSizeWidget{
+  const MyAppBar({super.key});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(80.0);
+
+  @override
+  _MyAppBarState createState() => _MyAppBarState();
+}
+
+
+class _MyAppBarState extends State<MyAppBar> {
+
+  
+
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+              backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        
+        toolbarHeight: 80.0,
+        
+        actions: 
+           [
+            
+              
+            IconButton(onPressed: () {
+            Navigator.pushNamed(context, '/home');
+           }, icon: Image.asset("assets/images/logo.png"),
+           iconSize: 60.0,
+           padding: EdgeInsets.only(left: 100.0),
+           ),
+
+            
+           
+
+           Padding(
+            padding: EdgeInsets.only(right: 960),
+            child:Tooltip(
+              message: "跳转首页",
+              child: TextButton(onPressed: () {
+           Navigator.pushNamed(context, '/home');
+           }, child: Text("永昼生存服务器",style: TextStyle(color: Colors.white,fontSize: 30.0),)),
+            )
+            
+           ),
+
+           
+
+
+           Spacer(),
+
+           Padding(padding: EdgeInsets.only(right: 10),
+           child:Tooltip(
+            message: "更新日志",
+            child: IconButton(onPressed: () {
+            Navigator.pushNamed(context, '/update');
+           }, icon: Icon(Icons.update,color: Colors.white,size: 28,)
+           ),
+           )
+           
+           ),
+
+           Tooltip(
+            message: "索引",
+            child: _buildMenuButton(context),
+           )
+           
+         
+           
+            
+         ],
+        
+    );
+  }
+
+  Widget _buildMenuButton(BuildContext context){
+    return Container(
+      margin: EdgeInsets.only(right: 30),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton2<MenuItem>(
+          customButton: Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: 28,
+            ),
+
+            items: MenuItems.items
+            .map((item) => DropdownMenuItem<MenuItem>(
+              value: item,
+              child: MenuItems.buildItem(item),
+            ))
+            .toList(),
+            onChanged: (item) {
+              if(item != null) Navigator.pushNamed(context, item.route);
+            },
+
+            dropdownStyleData: DropdownStyleData(
+              width: 200,
+              maxHeight: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Color.fromARGB(73, 0, 0, 0).withOpacity(0.8),
+              ),
+              offset: Offset(0, 5)
+            ),
+        )
+      ),
+    );
+  }
+}
