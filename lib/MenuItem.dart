@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_of_edss/normalpage/GuangAnDistrictPage.dart';
 
 class MenuItem {
   final String text;
@@ -15,7 +16,7 @@ class MenuItem {
 class MenuItems {
   static const List<MenuItem> items = [
     home,
-    NotFound
+    GuangAnDistrictPage
   ];
 
 
@@ -25,18 +26,19 @@ class MenuItems {
     route: '/home',
   );
 
-  static const NotFound = MenuItem(
-    text: '404',
+  static const GuangAnDistrictPage = MenuItem(
+    text: '广安区',
     icon: Icons.more_horiz,
-    route: '/none',
+    route: '/广安区',
   );
+
 
   static Widget buildItem(MenuItem item) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
       child: Row(
         children: [
-          Icon(item.icon, color: Colors.white, size: 22),
+          Icon(item.icon, color: Colors.white, size: 30),
           SizedBox(width: 12),
           Text(
             item.text,
@@ -52,3 +54,4 @@ class MenuItems {
 
   }
 }
+

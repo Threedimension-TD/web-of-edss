@@ -1,5 +1,6 @@
 import 'package:dynamic_path_url_strategy/dynamic_path_url_strategy.dart';
 import 'package:flutter/material.dart';
+import 'package:web_of_edss/normalpage/GuangAnDistrictPage.dart';
 import 'package:web_of_edss/normalpage/NotFoundPage.dart';
 import 'package:web_of_edss/normalpage/UpdatePage.dart';
 import 'MainPage.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, 
       debugShowMaterialGrid: false, 
       showPerformanceOverlay: false, 
-      title: "永昼生存服务器|Eternal Dawn Survival Server",
+      title: "永昼生存服务器 | Eternal Dawn Survival Server",
       theme: ThemeData(
         fontFamily: null,
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home':(context) => const MainPage(),
         '/update':(context) => const UpdatePage(),
+        '/广安区':(context) => const GuangAnDistrictPage()
       },
 
       onUnknownRoute: (settings){

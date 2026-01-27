@@ -22,6 +22,10 @@ class _MyAppBarState extends State<MyAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: Padding(padding: EdgeInsets.only(left: 20),
+      child: IconButton(onPressed: () {
+        Navigator.pop(context);
+      }, icon: Icon(Icons.arrow_back,color: Colors.white,)),),
               backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         
         toolbarHeight: 80.0,
@@ -68,7 +72,7 @@ class _MyAppBarState extends State<MyAppBar> {
            ),
 
            Tooltip(
-            message: "索引",
+            message: "更多页面",
             child: _buildMenuButton(context),
            )
            
@@ -85,13 +89,16 @@ class _MyAppBarState extends State<MyAppBar> {
       margin: EdgeInsets.only(right: 30),
       child: DropdownButtonHideUnderline(
         child: DropdownButton2<MenuItem>(
+          
           customButton: Icon(
             Icons.menu,
             color: Colors.white,
             size: 28,
             ),
 
-            items: MenuItems.items
+            items: 
+            
+            MenuItems.items
             .map((item) => DropdownMenuItem<MenuItem>(
               value: item,
               child: MenuItems.buildItem(item),

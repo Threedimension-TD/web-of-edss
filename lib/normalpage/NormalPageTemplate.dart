@@ -36,9 +36,8 @@ class NormalPageTemplate extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4),
                         ),
                         color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.7),
-                        child: SizedBox(
-                          width: 2000,
-                          height: 400,//记得根据不同的文本长度进行调整
+                        child: IntrinsicHeight(
+                          
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

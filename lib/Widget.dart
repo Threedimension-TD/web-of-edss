@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 Widget buildTitle(String title) {
   return Text(
@@ -21,4 +22,22 @@ Widget buildCenterTitle(String title,Color color) {
         color: color),
       ),
     );
+}
+
+Widget TitleText(String title) {
+  return Padding(padding: EdgeInsets.all(30),
+                child: SelectableText(title,style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize:40,fontWeight: FontWeight.normal),),
+  );
+}
+
+Widget SubTitleText(String subtitle) {
+  return Padding(padding: EdgeInsets.only(left: 30),
+  child: SelectableText(subtitle,style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize: 30,fontWeight: FontWeight.w100),),
+  );
+}
+
+Widget NormalText(String text) {
+  return Padding(padding: EdgeInsets.only(left: 30,right: 30),
+  child: SelectableText(text,style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize: 20,fontWeight: FontWeight.w200)),
+  );
 }
