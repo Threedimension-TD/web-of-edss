@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 Widget buildTitle(String title) {
   return Text(
@@ -41,3 +40,4 @@ Widget NormalText(String text) {
   child: SelectableText(text,style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize: 20,fontWeight: FontWeight.w200)),
   );
 }
+

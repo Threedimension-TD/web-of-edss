@@ -50,9 +50,9 @@ class UpdatePage extends StatelessWidget {
                               color: Color.fromARGB(95, 0, 0, 0),
                               ),
                               Padding(padding: EdgeInsets.only(left: 30),
-                              child: SelectableText("v26.1.26",style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize: 30,fontWeight: FontWeight.w100),),),
+                              child: SelectableText("v26.1.27",style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize: 30,fontWeight: FontWeight.w100),),),
                               Padding(padding: EdgeInsets.only(left: 30),
-                              child: SelectableText("解决了一些提出问题的甲方",style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize: 20,fontWeight: FontWeight.w200),),
+                              child: SelectableText("EDSS宣传网站第一版完成",style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize: 20,fontWeight: FontWeight.w200),),
                               )
                             ],
                           ),
