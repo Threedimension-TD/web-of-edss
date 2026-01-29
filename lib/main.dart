@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:web_of_edss/normalpage/GuangAnDistrictPage.dart';
 import 'package:web_of_edss/normalpage/NotFoundPage.dart';
 import 'package:web_of_edss/normalpage/UpdatePage.dart';
+import 'package:web_of_edss/specialpage/LoginPage.dart';
+import 'package:web_of_edss/specialpage/RegisterPage.dart';
 import 'MainPage.dart';
 
 void main() {
@@ -32,7 +34,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home':(context) => const MainPage(),
         '/update':(context) => const UpdatePage(),
-        '/广安区':(context) => const GuangAnDistrictPage()
+        '/广安区':(context) => const GuangAnDistrictPage(),
+        '/login':(context) => LoginPage(),
+        '/register':(context) => RegisterPage()
       },
 
       onUnknownRoute: (settings){

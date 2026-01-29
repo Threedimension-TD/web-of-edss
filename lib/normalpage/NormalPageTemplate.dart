@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_of_edss/MyAppBar.dart';
 import 'package:web_of_edss/MyBottomNavigationBar.dart';
-
+//本类适用于抄代码
 class NormalPageTemplate extends StatelessWidget {
   const NormalPageTemplate({super.key});
 

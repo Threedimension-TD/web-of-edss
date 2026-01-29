@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_of_edss/MyAppBar.dart';
 import 'package:web_of_edss/MyBottomNavigationBar.dart';
-import 'package:web_of_edss/Widget.dart';
+import 'package:web_of_edss/componets/Widget.dart';
 
 class GuangAnDistrictPage extends StatelessWidget{
   const GuangAnDistrictPage({super.key});

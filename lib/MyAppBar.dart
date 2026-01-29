@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:web_of_edss/MenuItem.dart';
+import 'package:web_of_edss/services/auth_service.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget{
   const MyAppBar({super.key});
@@ -15,7 +16,22 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget{
 
 class _MyAppBarState extends State<MyAppBar> {
 
-  
+  Map<String, dynamic>? _userInfo;
+bool _loading = true;
+
+@override
+void initState() {
+  super.initState();
+  _loadUser();
+}
+
+Future<void> _loadUser() async {
+  final user = await AuthService.getLocalUserInfo();
+  setState(() {
+    _userInfo = user;
+    _loading = false;
+  });
+}
 
   
 
@@ -58,7 +74,16 @@ class _MyAppBarState extends State<MyAppBar> {
            
 
 
-           Spacer(),
+           
+
+          /* if (!_loading)
+          Padding(
+          padding: EdgeInsets.only(right: 20),
+          child: _userInfo == null
+           ? _buildLoginButton(context)
+            : _buildAvatar(),
+           ),*/
+
 
            Padding(padding: EdgeInsets.only(right: 10),
            child:Tooltip(
@@ -74,7 +99,8 @@ class _MyAppBarState extends State<MyAppBar> {
            Tooltip(
             message: "更多页面",
             child: _buildMenuButton(context),
-           )
+           ),
+           
            
          
            
@@ -121,4 +147,43 @@ class _MyAppBarState extends State<MyAppBar> {
       ),
     );
   }
+
+
+
+  Widget _buildLoginButton(BuildContext context) {
+  return Tooltip(
+    message: "登录",
+    child: TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.white,
+        shape: CircleBorder(),
+        padding: EdgeInsets.only(right: 10),
+      ),
+      onPressed: () {
+        Navigator.pushNamed(context, '/login');
+      },
+      child: Text(
+        "登录",
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+        ),
+      ),
+    ),
+  );
+}
+
+
+
+Widget _buildAvatar() {
+  return Tooltip(
+    message: "已登录",
+    child: CircleAvatar(
+      radius: 18,
+      backgroundImage:
+          AssetImage('assets/images/Tr1c.png'),
+      backgroundColor: Colors.grey[300],
+    ),
+  );
+}
 }

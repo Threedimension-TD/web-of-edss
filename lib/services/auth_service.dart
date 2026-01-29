@@ -10,14 +10,14 @@ class AuthService {
 
   static Future<Map<String,dynamic>> login(String username,String password) async{
     try {
-      // 发送登录请求（表单格式，这是Spring Security默认期望的）
+      // 发送登录请求
       var response = await _client.post(
         Uri.parse('$_baseUrl/api/auth/login'),
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: {
-          'username': username,
-          'password': password,
-        },
+        headers: {'Content-Type': 'application/json'},
+        body:jsonEncode({
+    'username': username,
+    'password': password,
+  }),
       );
       
       print('登录响应状态: ${response.statusCode}');
