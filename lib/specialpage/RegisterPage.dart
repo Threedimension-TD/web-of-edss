@@ -38,7 +38,8 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Padding(
                 padding: EdgeInsets.all(80),
                 child: SizedBox(
-                  width: 520,
+                  width: 500,
+                  height: 550,
                   child: Card(
                     color: Colors.white.withOpacity(0.75),
                     child: Padding(
@@ -90,7 +91,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             height: 40,
                             child: ElevatedButton(
                               onPressed: _isLoading ? null : _handleRegister,
-                              child: Text("注册"),
+                              child: Text("注册",style: TextStyle(color: Colors.white),),
+                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue)),
                             ),
                           ),
                         ],

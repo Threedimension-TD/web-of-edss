@@ -30,11 +30,30 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  flutter_quill: ^11.0.0
+
+  flutter_quill_extensions: ^11.0.0
+
+  flutter_markdown: ^0.7.7+1
+
+  flutter_colorpicker: ^1.1.0
+
+  webview_flutter: ^4.13.1
+
+  path_provider: ^2.1.5
+
+  html_editor_enhanced: ^2.7.1
+
   dynamic_path_url_strategy: ^1.0.0
+
+  html: ^0.15.0
 
   shared_preferences: ^2.5.4
 
   dropdown_button2: ^2.3.9
+
+  flutter_html: ^3.0.0
 
   http: ^1.6.0
   

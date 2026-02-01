@@ -41,3 +41,8 @@ Widget NormalText(String text) {
   );
 }
 
+Widget NormalDivider() {
+  return  Divider(
+  color: Color.fromARGB(95, 0, 0, 0),
+  );
+}

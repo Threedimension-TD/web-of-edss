@@ -90,6 +90,12 @@ class AuthService {
     await prefs.remove('user_info');
   }
 
+  static Future<bool> isLoggedIn() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.containsKey('user_info');
+}
+
+
   //以下为注册
 
   // 在 AuthService 类中添加注册方法

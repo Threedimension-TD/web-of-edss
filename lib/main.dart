@@ -1,5 +1,6 @@
 import 'package:dynamic_path_url_strategy/dynamic_path_url_strategy.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:web_of_edss/normalpage/GuangAnDistrictPage.dart';
 import 'package:web_of_edss/normalpage/NotFoundPage.dart';
 import 'package:web_of_edss/normalpage/UpdatePage.dart';
@@ -18,6 +19,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return MaterialApp(
+
+      
+      
+
       debugShowCheckedModeBanner: false, 
       debugShowMaterialGrid: false, 
       showPerformanceOverlay: false, 

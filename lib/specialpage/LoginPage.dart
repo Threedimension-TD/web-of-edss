@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:web_of_edss/MyAppBar.dart';
 import 'package:web_of_edss/MyBottomNavigationBar.dart';
@@ -13,9 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   
-  bool _isLoading = false;      // 加载状态
-  String? _errorMessage;        // 错误信息
-  bool _passwordVisible = false; 
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                     Center(
                       child: Padding(padding: EdgeInsets.all(100),
                       child: SizedBox(
-                        height: 350,
+                        height: 400,
                         width: 500,
                         child: Card(
                         shape: RoundedRectangleBorder(
@@ -115,21 +114,54 @@ class _LoginPageState extends State<LoginPage> {
                         width: 300,
                         child:ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.blue),
+                          backgroundColor: MaterialStateProperty.all(Color.fromARGB(170, 0, 0, 0)),
                         ),
                         onPressed: _handleLogin, // 绑定处理函数
                         child: Text('登录',style: TextStyle(color: Colors.white),),
                       ),
                       )
                     ),
+
+
+
+                    Center(
+                    child: Padding(
+                     padding: const EdgeInsets.only(top: 12),
+                    child: RichText(
+                    text: TextSpan(
+                    style: const TextStyle(fontSize: 14, color: Colors.black87),
+                    children: [
+                  const TextSpan(text: '还没注册账号？'),
+                      TextSpan(
+                      text: '点此注册',
+                       style: const TextStyle(
+                            color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                       ),
+                      recognizer: TapGestureRecognizer()
+                           ..onTap = () {
+                           Navigator.pushNamed(context, '/register');
+                          },
+                        ),
+                      ],
+                     ),
+                      ),
+                     ),
+                    ),
                               //放置文本
                             ],
                           ),
                         ),
+
+
+                        
                       ),
                       )
                       ),
                     ),
+
+                    
+
                     
                    
                     Container(
