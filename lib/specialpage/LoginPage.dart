@@ -195,6 +195,9 @@ class _LoginPageState extends State<LoginPage> {
       // 4. 处理后端响应
       if (result['success'] == true) {
         // 登录成功
+        setState(() {
+          AuthService.isLoggedIn();
+        });
         Navigator.pushReplacementNamed(context, '/home');
       } else {
         // 登录失败

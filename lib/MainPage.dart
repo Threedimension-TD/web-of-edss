@@ -10,9 +10,7 @@ class MainPage extends StatelessWidget{
   Widget build(BuildContext context) {
     return PageTemplate(
       bodyContent: WikiCard(
-        initialContent: '''
-首页
-'''
+ initialContent: "首页",
       )
     );
       
