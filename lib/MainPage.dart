@@ -4,15 +4,14 @@ import 'package:web_of_edss/componets/WikiCard.dart';
 import 'package:web_of_edss/normalpage/PageTemplate.dart';
 
 class MainPage extends StatelessWidget{
-  const MainPage({super.key});
-  
+  const MainPage({super.key,required this.pageId});
+  final String pageId;
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
       bodyContent: WikiCard(
- initialContent: "首页",
+ pageId: pageId,
       )
     );
-      
   }
 }

@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  
+  final Color color = Color.fromARGB(170, 0, 0, 0);
 
 
   @override
@@ -65,10 +65,14 @@ class _LoginPageState extends State<LoginPage> {
                                 child:TextField(
                                 controller: _usernameController, 
                                 decoration: InputDecoration(
-                                  labelText: '用户名/邮箱',
-                                  hintText: '请输入用户名或邮箱',
+                                  labelText: '用户名/邮箱',labelStyle: TextStyle(color: color),
+                                  focusColor: Color.fromARGB(170, 0, 0, 0),
+                                  hintText: '请输入用户名或邮箱',hintStyle: TextStyle(color: color),
                                   prefixIcon: Icon(Icons.person),
                                   border: OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(170, 0, 0, 0), width: 2.0), // 设置选中时的边框颜色
+              ),
                                   fillColor: Colors.white,
                                   filled: true
                                 ),
@@ -91,13 +95,17 @@ class _LoginPageState extends State<LoginPage> {
                                     controller: _passwordController,
                                     obscureText: true, // 隐藏密码
                                     decoration: InputDecoration(
-                                    labelText: '密码',
+                                    labelText: '密码',labelStyle: TextStyle(color: color),
+                                                focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(170, 0, 0, 0), width: 2.0), // 设置选中时的边框颜色
+              ),
                                     prefixIcon: Icon(Icons.lock),
                                     border: OutlineInputBorder(),
                                     errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.red, width: 2.0),
                                     
                                     ),
+                                    hintText: "密码", hintStyle: TextStyle(color: color),
                                     fillColor: Colors.white,
                                     filled: true
                                     ),
@@ -198,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
         setState(() {
           AuthService.isLoggedIn();
         });
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/');
       } else {
         // 登录失败
         _showError(result['message']);

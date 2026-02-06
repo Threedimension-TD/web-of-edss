@@ -14,6 +14,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+  final Color color = Color.fromARGB(170, 0, 0, 0,);
 
   bool _isLoading = false;
   String? _errorMessage;
@@ -90,9 +91,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             width: 300,
                             height: 40,
                             child: ElevatedButton(
+                              
                               onPressed: _isLoading ? null : _handleRegister,
                               child: Text("注册",style: TextStyle(color: Colors.white),),
-                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue)),
+                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color.fromARGB(170, 0, 0, 0))),
                             ),
                           ),
                         ],
@@ -125,7 +127,10 @@ class _RegisterPageState extends State<RegisterPage> {
           controller: controller,
           obscureText: obscure,
           decoration: InputDecoration(
-            labelText: label,
+            labelText: label,labelStyle: TextStyle(color: color),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(170, 0, 0, 0), width: 2.0), // 设置选中时的边框颜色
+              ),
             prefixIcon: Icon(icon),
             suffixIcon: suffixIcon,
             border: OutlineInputBorder(),

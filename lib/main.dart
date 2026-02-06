@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:dynamic_path_url_strategy/dynamic_path_url_strategy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:web_of_edss/normalpage/GuangAnDistrictPage.dart';
+import 'package:web_of_edss/componets/WikiCard.dart';
+import 'package:web_of_edss/normalpage/NormalCreatePage.dart';
 import 'package:web_of_edss/normalpage/NotFoundPage.dart';
+import 'package:web_of_edss/normalpage/PageTemplate.dart';
 import 'package:web_of_edss/normalpage/UpdatePage.dart';
+import 'package:web_of_edss/specialpage/CreatePage.dart';
 import 'package:web_of_edss/specialpage/LoginPage.dart';
 import 'package:web_of_edss/specialpage/RegisterPage.dart';
 import 'MainPage.dart';
@@ -35,18 +40,59 @@ class MyApp extends StatelessWidget {
           primary: Color(0xFF4A90E2),
           )
       ),
-      initialRoute: '/home',
-      routes: {
-        '/home':(context) => const MainPage(),
-        '/update':(context) => const UpdatePage(),
-        '/广安区':(context) => const GuangAnDistrictPage(),
-        '/login':(context) => LoginPage(),
-        '/register':(context) => RegisterPage()
-      },
-
-      onUnknownRoute: (settings){
-        return MaterialPageRoute(builder: (context) => const NotFoundPage());
-      },
+      initialRoute: '/',
+  onGenerateRoute: (settings) {
+    final name = settings.name ?? '/';
+    if (name == '/') {
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (_) => MainPage(pageId: "主页",),
       );
+    }
+
+    // 创建页
+    if (name == '/create') {
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (_) => NormalCreatePage(),
+      );
+    }
+
+    if(name == '/login') {
+      
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (_) => LoginPage()
+        );
+    }
+
+    if(name == '/register') {
+      
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (_) => RegisterPage()
+        );
+    }
+
+
+    // Wiki 页面：/wiki/xxx
+    if (name.startsWith('/wiki/')) {
+      final pageId = name.replaceFirst('/wiki/', '');
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (_) => PageTemplate(
+          bodyContent: WikiCard(pageId: pageId),
+        ),
+      );
+    }
+
+    return MaterialPageRoute(
+      builder: (_) => NotFoundPage(),
+
+  
+    );
+      
+  });
   }
+
 }

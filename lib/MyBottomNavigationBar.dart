@@ -10,7 +10,7 @@ class MyBottomBavigationBar extends StatelessWidget {
       height: 240,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.7),
+        color: Colors.black,//.withOpacity(1),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(0),
           topRight: Radius.circular(0),
@@ -19,6 +19,9 @@ class MyBottomBavigationBar extends StatelessWidget {
       ),
       child: Stack(
         children: [
+          Center(
+          child: Image.asset("assets/images/logo.png"),
+          ),
           Padding(padding: EdgeInsets.only(left: 43,top: 10),
           child: SelectableText("开发人员",style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
           ),

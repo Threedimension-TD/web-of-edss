@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
 import 'package:markdown/markdown.dart' as md;
@@ -11,17 +10,14 @@ import 'package:web_of_edss/specialpage/LoginPage.dart';
 enum WikiMode { view, edit }
 
 class WikiCard extends StatefulWidget {
-  final String initialContent;
-  final ValueChanged<String>? onSave;
+  final String? pageId;
   final double width;
 
   const WikiCard({
     super.key,
-    required this.initialContent,
-    this.onSave,
+    required this.pageId,
     this.width = 2000,
   });
-
 
   @override
   State<WikiCard> createState() => _WikiCardState();
@@ -29,21 +25,36 @@ class WikiCard extends StatefulWidget {
 
 class _WikiCardState extends State<WikiCard> {
   late TextEditingController _controller;
-  bool isLoggedIn = false;  
   WikiMode _mode = WikiMode.view;
+  bool isLoggedIn = false;
 
-  Color _currentColor = Color.fromARGB(170, 0, 0, 0); // 初始化颜色为黑色
   double _currentFontSize = 24;
-  String _loadedContent = '';  // 用来显示加载的内容
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
-    _checkLoginStatus(); 
-    _loadFromServer(); 
+    _checkLoginStatus();
+    _loadFromServer();
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  // =========================
+  // 登录状态
+  // =========================
+  void _checkLoginStatus() async {
+    final loggedIn = await AuthService.isLoggedIn();
+    setState(() => isLoggedIn = loggedIn);
+  }
+
+  // =========================
+  // UI
+  // =========================
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -71,12 +82,6 @@ class _WikiCardState extends State<WikiCard> {
     );
   }
 
-void _checkLoginStatus() async {
-    bool loggedIn = await AuthService.isLoggedIn();  // 使用 AuthService 检查登录状态
-    setState(() {
-      isLoggedIn = loggedIn;  // 更新登录状态
-    });
-  }
   // =========================
   // Header
   // =========================
@@ -88,22 +93,25 @@ void _checkLoginStatus() async {
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const Spacer(),
+
+        /// 编辑
         if (_mode == WikiMode.view)
           TextButton.icon(
-            icon: const Icon(Icons.edit,color: Color.fromARGB(170, 0, 0, 0),),
-            label: const Text("编辑",style: TextStyle(color: Color.fromARGB(170, 0, 0, 0)),),
-            onPressed: () { 
-              if(isLoggedIn) {
-              setState(() => _mode = WikiMode.edit);
-              }else{
-                
-                  Navigator.push(
+            icon: const Icon(Icons.edit, color: Color.fromARGB(170, 0, 0, 0)),
+            label: const Text("编辑", style: TextStyle(color: Color.fromARGB(170, 0, 0, 0))),
+            onPressed: () {
+              if (isLoggedIn) {
+                setState(() => _mode = WikiMode.edit);
+              } else {
+                Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (_) => LoginPage()),
                 );
               }
-               },
+            },
           ),
+
+        /// 编辑模式按钮
         if (_mode == WikiMode.edit) ...[
           TextButton(
             onPressed: () => setState(() => _mode = WikiMode.view),
@@ -111,17 +119,17 @@ void _checkLoginStatus() async {
           ),
           const SizedBox(width: 8),
           ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all(Color.fromARGB(170, 0, 0, 0)),
+            ),
             onPressed: () async {
-              widget.onSave?.call(_controller.text);
-              await _saveToServer(_controller.text); 
+              await _saveToServer(_controller.text);
               setState(() => _mode = WikiMode.view);
             },
-            child: const Text("保存",style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Color.fromARGB(170, 0, 0, 0))
-            ),
+            child: const Text("保存",style: TextStyle(color: Colors.white),),
           ),
-        ]
+        ],
       ],
     );
   }
@@ -135,50 +143,38 @@ void _checkLoginStatus() async {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildEditorToolbar(),
-          const SizedBox(height: 5),
+          const SizedBox(height: 8),
           TextField(
+
             controller: _controller,
             maxLines: null,
-            style: TextStyle(fontSize: _currentFontSize), // 使用动态字体大小
+            style: TextStyle(fontSize: _currentFontSize),
             decoration: const InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(170, 0, 0, 0), width: 2.0), // 设置选中时的边框颜色
+              ),
               border: OutlineInputBorder(),
-              hintText: "支持HTML样式",
+              hintText: "支持HTML",
             ),
           ),
         ],
       );
     }
 
-final html = md.markdownToHtml(_controller.text);
+    /// 阅读模式
+    final html = md.markdownToHtml(_controller.text);
+    final htmlContent = html.isNotEmpty ? html : "<p>暂无内容</p>";
 
-  // 确保 HTML 内容不为 null
-  final htmlContent = html.isNotEmpty ? html : "<p>暂无内容</p>";
-    
     return Html(
       data: htmlContent,
-       // 直接显示加载的内容（包括 HTML 标签）
       style: {
-        "body": Style(
-          fontSize: FontSize(_currentFontSize),  // 渲染时应用字体大小
-        ),
-        "h1": Style(  // 确保所有标签使用相同字体大小
-          fontSize: FontSize(52),
-          fontWeight: FontWeight.normal
-          
-        ),
-        "hr":Style(
-          color: Colors.white
-        ),
-        "b": Style(
-        fontWeight: FontWeight.bold,
-        ),
-        "i": Style(
-          fontStyle: FontStyle.italic,
-        ),
-        
-       
+        "body": Style(fontSize: FontSize(_currentFontSize)),
+        "h1": Style(fontSize: FontSize(48)),
+        "h2": Style(fontSize: FontSize(36)),
+        "b": Style(fontWeight: FontWeight.bold),
+        "i": Style(fontStyle: FontStyle.italic),
+        "hr": Style(color: Colors.grey),
       },
-      
     );
   }
 
@@ -186,59 +182,51 @@ final html = md.markdownToHtml(_controller.text);
   // Toolbar
   // =========================
   Widget _buildEditorToolbar() {
-    return Text("请按照html格式编辑页面，例：<h1>新建页面</h1> 快捷标签：<b>加粗 <i>斜体 <u>下划线");
+    return const Text(
+      "使用html进行编辑，示例：<h1>Page Content</h1>",
+      style: TextStyle(color: Colors.black54),
+    );
   }
 
-  
+  // =========================
+  // API
+  // =========================
   Future<void> _saveToServer(String content) async {
-    final pageId = "MainPage";
-    final url = Uri.parse('http://localhost:8080/api/save?pageId=$pageId'); // 服务端保存路径
-
-    // 将内容转换为 JSON
-    final body = jsonEncode({
-      'content': content,
-    });
+    final url = Uri.parse(
+      'http://localhost:8080/api/wiki/${widget.pageId}',
+    );
 
     try {
-      // 发送 POST 请求
-      final response = await http.post(
+      final response = await http.put(
         url,
-        headers: {
-          'Content-Type': 'application/json',
-          'Host': 'localhost:8080',
-        },
-        body: body,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'content': content}),
       );
 
-      if (response.statusCode == 200) {
-        print('文件已成功保存到服务端！');
-        _loadFromServer();  // 保存成功后立即加载
-      } else {
-        print('保存失败：${response.statusCode}');
+      if (response.statusCode != 200) {
+        debugPrint('保存失败：${response.statusCode}');
       }
     } catch (e) {
-      print('请求错误: $e');
+      debugPrint('保存异常: $e');
     }
   }
 
   Future<void> _loadFromServer() async {
-    final String pageId = "MainPage";
-    final url = Uri.parse('http://localhost:8080/api/load?pageId=$pageId'); // 服务端加载路径
+    final url = Uri.parse(
+      'http://localhost:8080/api/wiki/${widget.pageId}',
+    );
 
     try {
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-        final String content = jsonResponse['content'] ?? ''; 
+        final data = jsonDecode(response.body);
         setState(() {
-          _controller.text = content;  // 加载返回的 HTML 内容
+          _controller.text = data['content'] ?? '';
         });
-      } else {
-        throw Exception('文件加载失败：${response.statusCode}');
       }
     } catch (e) {
-      print('请求错误: $e');
+      debugPrint('加载异常: $e');
     }
   }
 }
