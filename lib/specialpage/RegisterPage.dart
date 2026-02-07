@@ -48,7 +48,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Column(
                         children: [
                           TitleText("注册"),
-
+                          Center(
+                                child: Text('''温馨提示：若要注册请先确保您至少一次进入过服务器
+                                ''',style: TextStyle(color: Colors.red,fontStyle: FontStyle.italic),),
+                                ),
                           _buildInput(
                             controller: _usernameController,
                             label: "用户名",

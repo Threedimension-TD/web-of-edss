@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:dynamic_path_url_strategy/dynamic_path_url_strategy.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +71,14 @@ class MyApp extends StatelessWidget {
       return MaterialPageRoute(
         settings: settings,
         builder: (_) => RegisterPage()
+        );
+    }
+
+    if(name == '/update') {
+      
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (_) => UpdatePage()
         );
     }
 

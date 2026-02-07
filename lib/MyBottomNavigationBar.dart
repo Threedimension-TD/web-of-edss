@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class MyBottomBavigationBar extends StatelessWidget {
 
@@ -65,6 +66,13 @@ class MyBottomBavigationBar extends StatelessWidget {
           subtitle: SelectableText("一只可爱的小Nefo",style: TextStyle(color: const Color.fromARGB(255, 100, 100, 100)),),
           )
           ),
+          Positioned(
+            top: 50,
+            left: 1200,
+            child: Text('''加入服务器：QQ群742834377
+            
+永昼生存服务器随时欢迎您的到来！
+            ''',style: TextStyle(color: Colors.white,fontSize: 16),))
         ],
       ),
     );

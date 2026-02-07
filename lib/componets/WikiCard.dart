@@ -28,7 +28,7 @@ class _WikiCardState extends State<WikiCard> {
   WikiMode _mode = WikiMode.view;
   bool isLoggedIn = false;
 
-  double _currentFontSize = 24;
+  double _currentFontSize = 20;
 
   @override
   void initState() {
@@ -148,7 +148,7 @@ class _WikiCardState extends State<WikiCard> {
 
             controller: _controller,
             maxLines: null,
-            style: TextStyle(fontSize: _currentFontSize),
+            style: TextStyle(fontSize: _currentFontSize,fontWeight: FontWeight.w100),
             decoration: const InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Color.fromARGB(170, 0, 0, 0), width: 2.0), // 设置选中时的边框颜色
@@ -169,8 +169,9 @@ class _WikiCardState extends State<WikiCard> {
       data: htmlContent,
       style: {
         "body": Style(fontSize: FontSize(_currentFontSize)),
-        "h1": Style(fontSize: FontSize(48)),
-        "h2": Style(fontSize: FontSize(36)),
+        "h1": Style(fontSize: FontSize(52),fontWeight: FontWeight.normal),
+        "h2": Style(fontSize: FontSize(36),fontWeight: FontWeight.normal),
+        "h3":Style(fontSize: FontSize(30),fontWeight: FontWeight.normal),
         "b": Style(fontWeight: FontWeight.bold),
         "i": Style(fontStyle: FontStyle.italic),
         "hr": Style(color: Colors.grey),

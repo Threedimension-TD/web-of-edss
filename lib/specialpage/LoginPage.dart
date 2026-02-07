@@ -59,6 +59,10 @@ class _LoginPageState extends State<LoginPage> {
                                 child: TitleText("登录"),
                               ),
                               Center(
+                                child: Text('''温馨提示：若要登录请先确保您至少一次进入过服务器
+                                ''',style: TextStyle(color: Colors.red,fontStyle: FontStyle.italic),),
+                                ),
+                              Center(
                                 child: SizedBox(
                                 width: 300,
                                 height: 40,

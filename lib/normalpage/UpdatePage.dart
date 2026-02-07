@@ -38,22 +38,28 @@ class UpdatePage extends StatelessWidget {
                         color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.7),
                         child: SizedBox(
                           width: 2000,
-                          height: 300,//记得根据不同的文本长度进行调整
+                          height: 400,//记得根据不同的文本长度进行调整
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               //放置文本(普通文本统一Padding:left30，标题Padding:all30)
                               Padding(padding: EdgeInsets.all(30),
-                              child: SelectableText("更新日志",style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize:40,fontWeight: FontWeight.normal),),
-                              ),
-                              Divider(
-                              color: Color.fromARGB(95, 0, 0, 0),
+                              child: SelectableText("更新日志",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize:52,fontWeight: FontWeight.normal),),
                               ),
                               Padding(padding: EdgeInsets.only(left: 30),
-                              child: SelectableText("v26.1.27",style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize: 30,fontWeight: FontWeight.w100),),),
+                              child: SelectableText('''最新更新''',style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize: 36,fontWeight: FontWeight.normal),),),
+                              Text(""),
                               Padding(padding: EdgeInsets.only(left: 30),
-                              child: SelectableText("EDSS宣传网站第一版完成",style: TextStyle(color: Color.fromARGB(170, 0, 0, 0),fontSize: 20,fontWeight: FontWeight.w200),),
-                              )
+                              child: SelectableText("v26.2.6",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize: 30,fontWeight: FontWeight.normal),),),
+                              Padding(padding: EdgeInsets.only(left: 30),
+                              child: SelectableText("EDSS永昼生存服务器Wiki正式上线",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize: 20,fontWeight: FontWeight.w100),),
+                              ),
+                              Text(""),
+                              Padding(padding: EdgeInsets.only(left: 30),
+                              child: SelectableText("历史更新",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize: 36,fontWeight: FontWeight.w100),),
+                              ),
+                              Text(""),
+                              
                             ],
                           ),
                         ),
