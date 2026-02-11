@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:web_of_edss/componets/WikiCard.dart';
+import 'package:web_of_edss/main.dart';
 import 'package:web_of_edss/services/auth_service.dart';
 import 'package:web_of_edss/services/wiki_service.dart';
 import 'package:web_of_edss/specialpage/LoginPage.dart';
@@ -130,6 +131,7 @@ Future<void> _loadWikiPages() async {
           ),
           
           
+          
         /// 更新日志
         Tooltip(
           message: "更新日志",
@@ -179,10 +181,22 @@ Future<void> _loadWikiPages() async {
       items: wikiPages.map((pageId) {
         return DropdownMenuItem<String>(
           value: pageId,
-          child: Text(
+          child: GestureDetector(
+            onDoubleTapDown: (details){
+              if (!isLoggedIn) return;
+
+        _showDeleteMenu(
+          context,
+          pageId,
+          details.globalPosition,
+        );
+        
+            },
+            child: Text(
             pageId,
             style: const TextStyle(color: Colors.white),
           ),
+          )
         );
       }).toList(),
       onChanged: (pageId) {
@@ -201,6 +215,97 @@ Future<void> _loadWikiPages() async {
   )
   );
 }
+
+void _showDeleteMenu(
+  BuildContext context,
+  String pageId,
+  Offset position,
+) async {
+  final result = await showMenu<String>(
+    context: context,
+    color: Color.fromARGB(200, 40, 40, 40),//.withOpacity(0.7),
+    position: RelativeRect.fromLTRB(
+      position.dx,
+      position.dy,
+      position.dx,
+      position.dy,
+    ),
+    items: [
+      const PopupMenuItem(
+        
+        value: 'delete',
+        
+        child: Row(
+          
+    children: const [
+      Icon(
+        Icons.delete,
+        color: Colors.red,
+        size: 18,
+      ),
+      SizedBox(width: 8),
+      Text(
+        '删除页面',
+        style: TextStyle(
+          color: Colors.red,
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    ],
+  ),
+      ),
+    ],
+  );
+
+  if (result == 'delete') {
+    _confirmDeletePage(context, pageId);
+  }
+}
+
+void _confirmDeletePage(BuildContext context, String pageId) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4),),
+      title: const Text('确认删除'),
+      content: Text('确定要删除页面「$pageId」吗？此操作不可恢复。'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('取消',style: TextStyle(color: Color.fromARGB(170, 0, 0, 0)),),
+        ),
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context);
+
+            try {
+              await WikiService.deletePage(pageId);
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('页面已删除')),
+              );
+
+              // 重新加载页面列表
+              await _loadWikiPages();
+
+            } catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('删除失败：$e')),
+              );
+              
+            }
+          },
+          child: const Text(
+            '删除',
+            style: TextStyle(color: Colors.red),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 //登录按钮
   Widget _buildUserButton(BuildContext context) {
   return FutureBuilder<bool>(

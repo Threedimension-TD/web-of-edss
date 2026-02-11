@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_of_edss/MyAppBar.dart';
 import 'package:web_of_edss/MyBottomNavigationBar.dart';
+import 'package:web_of_edss/componets/Widget.dart';
 
 class UpdatePage extends StatelessWidget {
   const UpdatePage({super.key});
@@ -38,7 +39,7 @@ class UpdatePage extends StatelessWidget {
                         color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.7),
                         child: SizedBox(
                           width: 2000,
-                          height: 400,//记得根据不同的文本长度进行调整
+                          height: 600,//记得根据不同的文本长度进行调整
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -50,16 +51,18 @@ class UpdatePage extends StatelessWidget {
                               child: SelectableText('''最新更新''',style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize: 36,fontWeight: FontWeight.normal),),),
                               Text(""),
                               Padding(padding: EdgeInsets.only(left: 30),
-                              child: SelectableText("v26.2.6",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize: 30,fontWeight: FontWeight.normal),),),
-                              Padding(padding: EdgeInsets.only(left: 30),
-                              child: SelectableText("EDSS永昼生存服务器Wiki正式上线",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize: 20,fontWeight: FontWeight.w100),),
-                              ),
+                              child: SelectableText("v26.2.10",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize: 30,fontWeight: FontWeight.normal),),),
+                              
+                              NormalText('''新增了删除页面功能
+
+修复了一些已知问题并且解决了一些捣乱的用户'''),
                               Text(""),
                               Padding(padding: EdgeInsets.only(left: 30),
                               child: SelectableText("历史更新",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),fontSize: 36,fontWeight: FontWeight.w100),),
                               ),
                               Text(""),
-                              
+                              SubTitleText("v26.2.6"),
+                              NormalText("EDSSWiki正式上线（？）")
                             ],
                           ),
                         ),

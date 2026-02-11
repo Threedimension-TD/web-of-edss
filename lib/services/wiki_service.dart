@@ -39,6 +39,21 @@ static Future<List<String>> getAllPageIds() async {
     }
   }
 
+  static Future<void> deletePage(String pageId) async {
+  final url = Uri.parse('$baseUrl/$pageId');
+
+  final response = await http.delete(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  );
+
+  if (response.statusCode != 200 && response.statusCode != 204) {
+    throw Exception('删除页面失败：${response.body}');
+  }
+}
+
   // 获取页面内容
   static Future<String> getPageContent(String pageId) async {
     final url = Uri.parse('$baseUrl/$pageId');

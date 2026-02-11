@@ -12,11 +12,13 @@ enum WikiMode { view, edit }
 class WikiCard extends StatefulWidget {
   final String? pageId;
   final double width;
+ 
 
   const WikiCard({
     super.key,
     required this.pageId,
     this.width = 2000,
+    
   });
 
   @override
@@ -27,7 +29,7 @@ class _WikiCardState extends State<WikiCard> {
   late TextEditingController _controller;
   WikiMode _mode = WikiMode.view;
   bool isLoggedIn = false;
-
+  String baseUrl = "http://localhost:8080";//https://krystin-unshippable-eloise.ngrok-free.dev
   double _currentFontSize = 20;
 
   @override
@@ -175,6 +177,8 @@ class _WikiCardState extends State<WikiCard> {
         "b": Style(fontWeight: FontWeight.bold),
         "i": Style(fontStyle: FontStyle.italic),
         "hr": Style(color: Colors.grey),
+        
+        
       },
     );
   }
@@ -194,7 +198,7 @@ class _WikiCardState extends State<WikiCard> {
   // =========================
   Future<void> _saveToServer(String content) async {
     final url = Uri.parse(
-      'http://localhost:8080/api/wiki/${widget.pageId}',
+      '$baseUrl/api/wiki/${widget.pageId}',
     );
 
     try {
@@ -214,7 +218,7 @@ class _WikiCardState extends State<WikiCard> {
 
   Future<void> _loadFromServer() async {
     final url = Uri.parse(
-      'http://localhost:8080/api/wiki/${widget.pageId}',
+      '$baseUrl/api/wiki/${widget.pageId}',
     );
 
     try {

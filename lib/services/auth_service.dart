@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  static const String _baseUrl = 'http://localhost:8080';
+  static const String _baseUrl = 'http://localhost:8080';//https://krystin-unshippable-eloise.ngrok-free.dev
 
   static final http.Client _client = http.Client();
 
@@ -42,7 +42,7 @@ class AuthService {
   static Future<Map<String, dynamic>> getCurrentUser() async {
     try {
       var response = await _client.get(
-        Uri.parse('$_baseUrl/api/auth/me'),
+        Uri.parse('/api/auth/me'),
       );
       
       if (response.statusCode == 200) {

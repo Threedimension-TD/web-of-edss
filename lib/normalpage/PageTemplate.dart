@@ -33,7 +33,9 @@ void _createNewPage(BuildContext context) {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(backgroundImage),
+            image: AssetImage(
+              backgroundImage
+            ),
             fit: BoxFit.fill,
           ),
         ),
