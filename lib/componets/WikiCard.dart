@@ -46,17 +46,12 @@ class _WikiCardState extends State<WikiCard> {
     super.dispose();
   }
 
-  // =========================
-  // 登录状态
-  // =========================
   void _checkLoginStatus() async {
     final loggedIn = await AuthService.isLoggedIn();
     setState(() => isLoggedIn = loggedIn);
   }
 
-  // =========================
-  // UI
-  // =========================
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -84,9 +79,6 @@ class _WikiCardState extends State<WikiCard> {
     );
   }
 
-  // =========================
-  // Header
-  // =========================
   Widget _buildHeader() {
     return Row(
       children: [
@@ -96,7 +88,7 @@ class _WikiCardState extends State<WikiCard> {
         ),
         const Spacer(),
 
-        /// 编辑
+        // 编辑模式
         if (_mode == WikiMode.view)
           TextButton.icon(
             icon: const Icon(Icons.edit, color: Color.fromARGB(170, 0, 0, 0)),
@@ -113,7 +105,7 @@ class _WikiCardState extends State<WikiCard> {
             },
           ),
 
-        /// 编辑模式按钮
+        // 编辑模式按钮
         if (_mode == WikiMode.edit) ...[
           TextButton(
             onPressed: () => setState(() => _mode = WikiMode.view),
@@ -136,9 +128,7 @@ class _WikiCardState extends State<WikiCard> {
     );
   }
 
-  // =========================
-  // Body
-  // =========================
+  
   Widget _buildBody() {
     if (_mode == WikiMode.edit) {
       return Column(
@@ -163,7 +153,7 @@ class _WikiCardState extends State<WikiCard> {
       );
     }
 
-    /// 阅读模式
+    //阅读模式
     final html = md.markdownToHtml(_controller.text);
     final htmlContent = html.isNotEmpty ? html : "<p>暂无内容</p>";
 
@@ -183,9 +173,7 @@ class _WikiCardState extends State<WikiCard> {
     );
   }
 
-  // =========================
-  // Toolbar
-  // =========================
+  
   Widget _buildEditorToolbar() {
     return const Text(
       "使用html进行编辑，示例：<h1>Page Content</h1>",
@@ -193,9 +181,7 @@ class _WikiCardState extends State<WikiCard> {
     );
   }
 
-  // =========================
-  // API
-  // =========================
+  //保存
   Future<void> _saveToServer(String content) async {
     final url = Uri.parse(
       '$baseUrl/api/wiki/${widget.pageId}',
@@ -215,7 +201,7 @@ class _WikiCardState extends State<WikiCard> {
       debugPrint('保存异常: $e');
     }
   }
-
+//加载
   Future<void> _loadFromServer() async {
     final url = Uri.parse(
       '$baseUrl/api/wiki/${widget.pageId}',
