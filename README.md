@@ -1,7 +1,6 @@
 # EDSS Wiki
 
 永昼生存服务器（E.D.S.S）的官方维基百科网站
-The offical wiki web of Eternal Dawn Survival Server(E.D.S.S)
 
 ## 详情
 
